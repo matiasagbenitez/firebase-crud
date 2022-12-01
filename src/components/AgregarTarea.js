@@ -11,6 +11,24 @@ const AgregarTarea = ({ arrayTareas, setArrayTareas, correoUsuario }) => {
 
   let urlDescarga;
 
+  async function fileHandler(e) {
+    e.preventDefault();
+    
+    // Obtener el archivo
+    const file = e.target.files[0];
+    
+    // Crear referencia al archivo
+    const storageRef = ref(storage, `documentos/${file.name}`);
+    
+    // Subir el archivo
+    await uploadBytes(storageRef, file);
+    
+    // Obtener la URL del archivo
+    urlDescarga = await getDownloadURL(storageRef);
+    
+    console.log(urlDescarga);
+  }
+
   async function agregarTarea(e) {
     e.preventDefault();
 
@@ -20,13 +38,18 @@ const AgregarTarea = ({ arrayTareas, setArrayTareas, correoUsuario }) => {
     const nuevoArrayTareas = [...arrayTareas, {
       id: arrayTareas.length + 1,
       descripcion: descripcion,
-      url: urlDescarga
+      // url: urlDescarga ? urlDescarga : 'https://i.postimg.cc/5yrQdq9s/Captura-de-pantalla-de-2022-11-30-23-24-42.png'
+      // Esperar a que urlDescarga tenga un valor
+      url: await urlDescarga ? urlDescarga : 'https://i.postimg.cc/5yrQdq9s/Captura-de-pantalla-de-2022-11-30-23-24-42.png'
     }];
+
+    console.log(nuevoArrayTareas);
 
     // Actualizar la base de datos
     const docRef = doc(firestore, `usuarios/${correoUsuario}`);
     await updateDoc(docRef, {
-      tareas: [...nuevoArrayTareas]
+      // tareas: [...nuevoArrayTareas]
+      tareas: nuevoArrayTareas
     });
 
     // Actualizar el estado
@@ -34,36 +57,22 @@ const AgregarTarea = ({ arrayTareas, setArrayTareas, correoUsuario }) => {
 
     // Limpiar el formulario
     e.target.formDescripcion.value = "";
+
+    // Limpiar el input de archivo
+    e.target.formArchivo.value = "";
   }
 
-  async function fileHandler(e) {
-    e.preventDefault();
-
-    // Obtener el archivo
-    const file = e.target.files[0];
-
-    // Crear referencia al archivo
-    const storageRef = ref(storage, `documentos/${file.name}`);
-
-    // Subir el archivo
-    await uploadBytes(storageRef, file);
-
-    // Obtener la URL del archivo
-    urlDescarga = await getDownloadURL(storageRef);
-    
-  }
-
-  return (
-
-    <Container>
-      <h2>Agregar tarea</h2>
+return (
+  
+  <Container>
+      <h3>Agregar tarea</h3>
       <Form onSubmit={agregarTarea}>
-        <Row>
+        <Row className='d-flex justify-content-between'>
           <Col>
             <Form.Control type="text" placeholder="Descripción de la tarea..." id="formDescripcion" />
           </Col>
           <Col>
-            <Form.Control type="file" placeholder="Añade tu archivo..." onChange={fileHandler} />
+            <Form.Control type="file" placeholder="Añade tu archivo..." onChange={fileHandler} id="formArchivo" />
           </Col>
           <Col>
             <Button variant="success" type="submit">

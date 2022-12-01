@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, Card } from 'react-bootstrap';
 import AgregarTarea from './AgregarTarea';
 import ListadoTareas from './ListadoTareas';
 
@@ -52,15 +52,32 @@ const Home = ({ correoUsuario }) => {
     return (
         <Container>
 
-            <h1>Home</h1>
-            <p>¡Estás logueado!</p>
-            <Button variant="danger" onClick={() => signOut(auth)}>Cerrar sesión</Button>
+            <div className="d-flex justify-content-between align-items-center my-3">
+                <h1>
+                    ¡Hola!
+                </h1>
+                <p className="mb-0">
+                    ¡Estás logueado como <span className='fw-bolder'>{correoUsuario}</span>!
+                </p>
+                <Button variant="danger" onClick={() => signOut(auth)}>Cerrar sesión</Button>
+            </div>
 
-            <hr />
-            <AgregarTarea arrayTareas={arrayTareas} setArrayTareas={setArrayTareas} correoUsuario={correoUsuario} />
+            <Card className='p-3 mb-3 bg-light'>
+                <AgregarTarea arrayTareas={arrayTareas} setArrayTareas={setArrayTareas} correoUsuario={correoUsuario} />
+            </Card>
 
-            <hr />
-            {arrayTareas ? <ListadoTareas arrayTareas={arrayTareas} setArrayTareas={setArrayTareas} correoUsuario={correoUsuario} /> : null}
+
+            <Card className='p-3 bg-light'>
+                {arrayTareas ? <ListadoTareas arrayTareas={arrayTareas} setArrayTareas={setArrayTareas} correoUsuario={correoUsuario} /> : <p>Cargando...</p>}
+            </Card>
+
+            {/* Footer */}
+            <footer className="my-5 pt-5 text-muted text-center text-small">
+                <p className="mb-1">© 2022 Paradigmas y Lenguajes de Programación</p>
+                <ul className="list-inline">
+                    <li className="list-inline-item"><a target="blank" href="https://github.com/matiasagbenitez/firebase-crud">Código fuente (GitHub)</a></li>
+                </ul>
+            </footer>
 
         </Container>
     );

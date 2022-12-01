@@ -38,31 +38,45 @@ const Logueo = () => {
         <Container>
             <Stack gap={3}>
 
-                <h1>{estaRegistrandose ? 'Registrarse' : 'Iniciar sesión'}</h1>
+                <h1 className='text-center mt-3'>{estaRegistrandose ? 'Registrarse' : 'Iniciar sesión'}</h1>
 
-                <Form onSubmit={ submitHandler }>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
-                    </Form.Group>
+                <div className='d-grid justify-content-center'>
+                    <Form onSubmit={submitHandler} style={{ width: "600px" }}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Correo electrónico</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Contraseña</Form.Label>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Form.Group>
 
-                    <Button variant="secondary" type="submit" style={{ width: "300px"}}>
-                        {estaRegistrandose ? 'Registrarse' : 'Ingresar'}
-                    </Button>
-                </Form>
+                        <div className='d-flex justify-content-center mb-2'>
+                            <Button variant="secondary" type="submit" style={{ width: "400px" }}>
+                                {estaRegistrandose ? 'Registrarse' : 'Ingresar'}
+                            </Button>
+                        </div>
+                    </Form>
 
-                <Button variant="warning" onClick={() => setEstaRegistrandose(!estaRegistrandose)} style={{ width: "300px"}}>
-                    {estaRegistrandose ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate'}
-                </Button>
-                
-                <Button variant="success" type="submit" style={{ width: "300px"}} onClick={() => signInWithRedirect(auth, googleProvider)}>
-                    Acceder con Google
-                </Button>
+                    <div className='d-grid justify-content-center gap-2'>
+                        <Button variant="dark" onClick={() => setEstaRegistrandose(!estaRegistrandose)} style={{ width: "400px" }}>
+                            {estaRegistrandose ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate'}
+                        </Button>
+
+                        <Button variant="success" type="submit" style={{ width: "400px" }} onClick={() => signInWithRedirect(auth, googleProvider)}>
+                            Acceder con Google
+                        </Button>
+                    </div>
+                </div>
+
+                {/* Footer */}
+                <footer className="my-5 pt-5 text-muted text-center text-small">
+                    <p className="mb-1">© 2022 Paradigmas y Lenguajes de Programación</p>
+                    <ul className="list-inline">
+                        <li className="list-inline-item"><a target="blank" href="https://github.com/matiasagbenitez/firebase-crud">Código fuente (GitHub)</a></li>
+                    </ul>
+                </footer>
 
             </Stack>
         </Container>
