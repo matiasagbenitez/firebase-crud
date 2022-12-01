@@ -18,7 +18,7 @@ function App() {
     }
   });
 
-  return <>{ usuarioGlobal ? <Home /> : <Logueo /> }</>
+  return <>{ usuarioGlobal ? <Home correoUsuario={usuarioGlobal.email} /> : <Logueo /> }</>
   
 }
 
