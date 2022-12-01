@@ -8,7 +8,7 @@ const firestore = getFirestore(firebaseApp);
 const ListadoTareas = ({ arrayTareas, correoUsuario, setArrayTareas }) => {
 
     async function eliminarTarea(idTarea) {
-    
+
         // Nuevo array de tareas sin la tarea eliminada
         const nuevoArrayTareas = arrayTareas.filter(tarea => tarea.id !== idTarea);
 
@@ -20,12 +20,13 @@ const ListadoTareas = ({ arrayTareas, correoUsuario, setArrayTareas }) => {
         });
 
         // Actualizar el array de tareas en el estado
-        setArrayTareas(nuevoArrayTareas);        
+        setArrayTareas(nuevoArrayTareas);
 
     }
 
     return (
         <Container>
+            <h2>Listado de tareas</h2>
             <Stack>
                 {arrayTareas.map((tarea) => {
                     return (
@@ -36,7 +37,9 @@ const ListadoTareas = ({ arrayTareas, correoUsuario, setArrayTareas }) => {
                                 </Col>
 
                                 <Col>
-                                    <Button variant="secondary">Ver archivo</Button>
+                                    <a href={tarea.url}>
+                                        <Button variant="secondary">Ver archivo</Button>
+                                    </a>
                                 </Col>
 
                                 <Col>
