@@ -58,7 +58,7 @@ const Home = ({ correoUsuario }) => {
 
             <hr />
 
-            <AgregarTarea />
+            <AgregarTarea arrayTareas={arrayTareas} setArrayTareas={setArrayTareas} correoUsuario={correoUsuario} />
             {arrayTareas ? <ListadoTareas arrayTareas={arrayTareas} setArrayTareas={setArrayTareas} correoUsuario={correoUsuario} /> : null}
 
         </Container>
