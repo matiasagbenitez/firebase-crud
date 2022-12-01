@@ -23,7 +23,7 @@ const Home = ({ correoUsuario }) => {
 
     // Función para buscar los datos en la base de datos o crearlos si no existen
     async function buscarDocumentoOrCrearDocumento(idDocumento) {
-        
+
         const docRef = doc(firestore, `usuarios/${idDocumento}`);       // Referencia al documento   
         const docSnap = await getDoc(docRef);                           // Buscar el documento
 
@@ -59,7 +59,7 @@ const Home = ({ correoUsuario }) => {
             <hr />
 
             <AgregarTarea />
-            { arrayTareas ? <ListadoTareas arrayTareas={arrayTareas} /> : null }
+            {arrayTareas ? <ListadoTareas arrayTareas={arrayTareas} setArrayTareas={setArrayTareas} correoUsuario={correoUsuario} /> : null}
 
         </Container>
     );
